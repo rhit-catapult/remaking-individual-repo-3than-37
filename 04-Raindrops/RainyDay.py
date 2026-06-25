@@ -102,12 +102,16 @@ class Cloud:
         
 
     def rain(self):
+        for k in range(5):
+            drop_x = random.randint(self.x, self.x + self.image_cloud.get_width())
+            drop_y = self.y + self.image_cloud.get_height() -5
+            rainspawn = Raindrop(self.screen, drop_x,drop_y)
+            self.raindrops.append(rainspawn)
         """ Adds a Raindrop to the array of raindrops so that it looks like the Cloud is raining. """
         # TODO 28: Append a new Raindrop to this Cloud's list of raindrops,
         #     where the new Raindrop starts at:
         #       - x is a random integer between this Cloud's x and this Cloud's x + 300.
         #       - y is this Cloud's y + 100.
-        pass
 
 
 def main():
@@ -146,8 +150,20 @@ def main():
         screen.fill(pygame.Color(255,255,255))
         
         cloud.draw()
+        cloud.rain()
+        for raindrop in cloud.raindrops:
+            raindrop.move()
+            raindrop.draw()
+            if mike.hit_by(raindrop):
+                mike.last_hit_time = time.time()
+                cloud.raindrops.remove(raindrop)
+            if alyssa.hit_by(raindrop):
+                alyssa.last_hit_time = time.time()
+                cloud.raindrops.remove(raindrop)
+            if raindrop.off_screen():
+                cloud.raindrops.remove(raindrop)
 
-
+        
 
         # test_drop.move()
         # if test_drop.off_screen():
