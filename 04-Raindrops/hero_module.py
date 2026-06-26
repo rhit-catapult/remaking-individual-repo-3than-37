@@ -19,3 +19,6 @@ class Hero:
     def hit_by(self, raindrop):
         hit_box = pygame.Rect(self.x, self.y, self.image_unbrella.get_width(), self.image_unbrella.get_height())
         return hit_box.collidepoint(raindrop.x, raindrop.y)
+    
+    # if __name__ == "__main__":
+        main()
